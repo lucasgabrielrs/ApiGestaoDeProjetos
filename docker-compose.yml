@@ -1,0 +1,53 @@
+version: "3.9"
+services:
+  app:
+    image: api-gestao-projetos-back
+    build:
+      context: ./
+      dockerfile: dockerfile
+      args:
+        PHP_VERSION: "8.2-fpm"
+        workDir: /var/www/
+        dirApp: ./app
+        entrypoint: ./docker/entrypoint.sh
+        customIni: ./docker/php/custom.ini
+        user: lucasrs
+    volumes:
+      - ./app:/var/www/
+      - /var/www/vendor
+    restart: unless-stopped
+    networks:
+      - api-gestao-projetos-net
+
+  nginx:
+    image: nginx:alpine
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    volumes:
+      - ./app:/var/www/
+      - ./docker/nginx/:/etc/nginx/conf.d/
+    networks:
+      - api-gestao-projetos-net
+
+  mysql:
+    image: mysql:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_DATABASE: api_gestao_projetos
+      MYSQL_USER: lucasrs
+      MYSQL_PASSWORD: 123
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - api-gestao-projetos-net
+
+volumes:
+  db_data:
+
+networks:
+  api-gestao-projetos-net:
+    driver: bridge
