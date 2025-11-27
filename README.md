@@ -78,6 +78,8 @@ DB_DATABASE=api_gestao_projetos
 DB_USERNAME=lucasrs
 DB_PASSWORD=123
 
+SESSION_DRIVER=file
+
 # Outras configurações já estão pré-definidas
 ```
 
