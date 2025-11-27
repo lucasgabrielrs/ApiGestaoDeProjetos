@@ -92,13 +92,10 @@ docker compose up -d --build
 
 #### 4. Configure a aplicação Laravel
 ```bash
-# Execute os comandos dentro do container da aplicação
-docker-compose exec app bash
 
-# Dentro do container:
-composer install
-php artisan key:generate
-php artisan migrate --seed
+docker compose exec -u root app composer install
+docker compose exec app php artisan key:generate
+docker compose exec app php artisan migrate --seed
 ```
 
 #### 5. Acesse a aplicação
