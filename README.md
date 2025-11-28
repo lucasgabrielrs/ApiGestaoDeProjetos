@@ -78,6 +78,7 @@ DB_DATABASE=api_gestao_projetos
 DB_USERNAME=lucasrs
 DB_PASSWORD=123
 
+//Substituir de database para file
 SESSION_DRIVER=file
 
 # Outras configurações já estão pré-definidas
@@ -148,7 +149,6 @@ docker compose exec app php artisan migrate --seed
 
 Após executar o projeto, acesse a documentação Swagger em:
 - **Local**: http://localhost:8000/api/documentation
-- **Docker**: http://localhost:8080/api/documentation
 
 ## 🔧 Comandos Úteis
 
